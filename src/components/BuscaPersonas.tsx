@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import { removeDiacritics } from "../lib/letras";
+import ReactHtmlParser from "react-html-parser";
 interface Props {
   name: string;
   personas: any[];
@@ -24,10 +25,9 @@ const BuscaPersonas = ({ name, personas }: Props) => {
     console.log(busca, "has changed");
     //const cleanedString = accentedString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const res = personas.filter((item: any) => {
-      const cleanedString = item.nombre
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-      return cleanedString.includes(busca);
+      const simplecadena = removeDiacritics(item.nombre);
+      //console.log(simplecadena);
+      return simplecadena.includes(busca);
     });
     setResPersonas(res);
   }, [busca, personas]);
@@ -50,7 +50,7 @@ const BuscaPersonas = ({ name, personas }: Props) => {
   }, [persona]);
 
   return (
-    <div className="bg-amber-400 h-auto p-8 ">
+    <div className="bg-transparent h-64 p-8 ">
       <div role="alert" className="alert alert-success mb-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -92,21 +92,23 @@ const BuscaPersonas = ({ name, personas }: Props) => {
         Reset
       </button>
 
-      <div className="bg-slate-900 flex gap-4 justify-between">
-        <div className="bg-green-200 w-full flex flex-col justify-end">
+      <div className="bg-transparent flex gap-4 justify-between">
+        <div className="bg-stone-800-200 w-full flex flex-col justify-end">
           {busca.length > 2 &&
             resPersonas.map((item: any) => (
               <button
                 onClick={() => selPersona(item.id)}
-                className="btn  block p-1 m-1"
+                className="btn  block p-1 m-1 bg-slate-800 text-slate-400"
                 key={item.id}
               >
                 {item.id}{" "}
-                <span className="font-bold text-3xl">{item.nombre}</span>
+                <span className="font-bold text-2xl">
+                  {ReactHtmlParser(removeDiacritics(item.nombre))}
+                </span>
               </button>
             ))}
         </div>
-        <div className="bg-pink-200 w-full">
+        <div className="bg-transparent w-full">
           {persona > 0 && (
             <div className="card card-compact bg-base-100 w-96 shadow-xl mx-auto my-auto p-4">
               <div className="text-3xl font-bold">{humano.pais}</div>
@@ -147,6 +149,7 @@ const BuscaPersonas = ({ name, personas }: Props) => {
 };
 
 export default BuscaPersonas;
+
 /* 
 
 {
