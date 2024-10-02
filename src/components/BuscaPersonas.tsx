@@ -87,15 +87,16 @@ const BuscaPersonas = ({ name, personas }: Props) => {
       </button>
 
       <div className="bg-slate-900 flex gap-4 justify-between">
-        <div className="bg-green-200 w-full">
+        <div className="bg-green-200 w-full flex flex-col justify-end">
           {busca.length > 2 &&
             resPersonas.map((item: any) => (
               <button
                 onClick={() => selPersona(item.id)}
-                className="btn btn-xs block p-1 m-1"
+                className="btn  block p-1 m-1"
                 key={item.id}
               >
-                {item.id} {item.nombre}
+                {item.id}{" "}
+                <span className="font-bold text-3xl">{item.nombre}</span>
               </button>
             ))}
         </div>
