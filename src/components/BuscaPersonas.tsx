@@ -117,12 +117,12 @@ const BuscaPersonas = ({ name }: Props) => {
                 {/* <span className="font-bold text-2xl">
                   {ReactHtmlParser(removeDiacritics(item.nombre))}
                 </span> */}
-                <div
-                  className=""
+                <span
+                  className="text-2xl"
                   dangerouslySetInnerHTML={{
                     __html: `${removeDiacritics(item.nombre)}`,
                   }}
-                />
+                ></span>
               </button>
             ))}
         </div>
