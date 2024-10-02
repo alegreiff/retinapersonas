@@ -1,7 +1,7 @@
 ---
 import BuscaPersonas from "@/components/BuscaPersonas";
 
-const response = await fetch('https://retinalatina.org/wp-json/ra/v1/lista_talento?q=3');
+const response = await fetch('https://retinalatina.org/wp-json/ra/v1/lista_talento?q=5');
 const data = await response.json();
 console.log( data );
 
@@ -18,7 +18,8 @@ console.log( data );
 		
 	</head>
 	<body>
-		<div class="container mx-auto bg-pink-900 p-8">
+		<div class="container mx-auto bg-slate-800 p-8 h-svh">
+			<h3 class="text-stone-200 text-3xl text-center p-4">Buscador de personajes del cine Retina Latina</h3>
 		<BuscaPersonas client:load name="jaime" personas={data}/>
 	</div>
 	</body>
