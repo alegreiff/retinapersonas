@@ -1,4 +1,10 @@
 ---
+import BuscaPersonas from "@/components/BuscaPersonas";
+
+const response = await fetch('https://retinalatina.org/wp-json/ra/v1/lista_talento?q=3');
+const data = await response.json();
+console.log( data );
+
 
 ---
 
@@ -9,8 +15,11 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+		
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div class="container mx-auto bg-pink-900 p-8">
+		<BuscaPersonas client:load name="jaime" personas={data}/>
+	</div>
 	</body>
 </html>
