@@ -4,14 +4,25 @@ import { removeDiacritics } from "../lib/letras";
 //import ReactHtmlParser from "react-html-parser";
 interface Props {
   name: string;
-  personas: any[];
 }
 
-const BuscaPersonas = ({ name, personas }: Props) => {
+const BuscaPersonas = ({ name }: Props) => {
   const [busca, setBusca] = useState<string>("");
   const [persona, setPersona] = useState<number>(0);
-  const [resPersonas, setResPersonas] = useState<any[]>(personas);
+  const [resPersonas, setResPersonas] = useState<any[]>([]);
   const [humano, setHumano] = useState<any>([]);
+  const [personas, setPersonas] = useState<any>([]);
+
+  useEffect(() => {
+    const cargaDatos = async () => {
+      const response = await fetch(
+        "https://retinalatina.org/wp-json/ra/v1/lista_talento?q=10"
+      );
+      const data = await response.json();
+      setPersonas(data);
+    };
+    cargaDatos();
+  }, []);
 
   const handleChange = (event: any) => {
     console.log(event.target.value);
