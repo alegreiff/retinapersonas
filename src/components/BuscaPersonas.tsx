@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { removeDiacritics } from "../lib/letras";
-import ReactHtmlParser from "react-html-parser";
+//import ReactHtmlParser from "react-html-parser";
+//import ReactHtmlParser from "react-html-parser";
 interface Props {
   name: string;
   personas: any[];
@@ -102,9 +103,15 @@ const BuscaPersonas = ({ name, personas }: Props) => {
                 key={item.id}
               >
                 {item.id}{" "}
-                <span className="font-bold text-2xl">
+                {/* <span className="font-bold text-2xl">
                   {ReactHtmlParser(removeDiacritics(item.nombre))}
-                </span>
+                </span> */}
+                <div
+                  className=""
+                  dangerouslySetInnerHTML={{
+                    __html: `${removeDiacritics(item.nombre)}`,
+                  }}
+                />
               </button>
             ))}
         </div>
