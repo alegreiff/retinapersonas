@@ -22,7 +22,13 @@ const BuscaPersonas = ({ name, personas }: Props) => {
 
   useEffect(() => {
     console.log(busca, "has changed");
-    const res = personas.filter((item: any) => item.nombre.includes(busca));
+    //const cleanedString = accentedString.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const res = personas.filter((item: any) => {
+      const cleanedString = item.nombre
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      return cleanedString.includes(busca);
+    });
     setResPersonas(res);
   }, [busca, personas]);
 
