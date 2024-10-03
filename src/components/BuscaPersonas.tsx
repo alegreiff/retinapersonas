@@ -38,7 +38,7 @@ const BuscaPersonas = ({ name }: Props) => {
       data.sort(dynamicSort("nombre"));
 
       setPersonas(data);
-      console.log(data);
+      //console.log(data);
     };
     cargaDatos();
   }, []);
