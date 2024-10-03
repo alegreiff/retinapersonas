@@ -81,7 +81,7 @@ const BuscaPersonas = ({ name }: Props) => {
   }, [persona]);
 
   return (
-    <div className="bg-transparent h-64 p-8 ">
+    <div className="bg-zinc-800 h-[1100px] p-8  ">
       <div role="alert" className="alert alert-success mb-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -123,8 +123,8 @@ const BuscaPersonas = ({ name }: Props) => {
         Reset
       </button>
 
-      <div className="bg-slate-900 flex gap-4 justify-between max-h-screen">
-        <div className="bg-transparent w-full flex flex-col  overflow-y-auto ">
+      <div className="bg-slate-900 flex gap-4 justify-between ">
+        <div className="bg-transparent w-full flex flex-col h-[780px]  overflow-y-auto py-20">
           {busca.length > 2 &&
             resPersonas.map((item: any) => (
               <button
@@ -145,7 +145,7 @@ const BuscaPersonas = ({ name }: Props) => {
               </button>
             ))}
         </div>
-        <div className="bg-transparent w-full">
+        <div className="bg-transparent w-full py-20">
           {persona > 0 && (
             <div className="card card-compact bg-base-100 w-96 shadow-xl mx-auto my-auto p-4">
               <div className="text-3xl font-bold">{humano.pais}</div>
