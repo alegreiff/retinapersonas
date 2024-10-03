@@ -6,6 +6,22 @@ interface Props {
   name: string;
 }
 
+function dynamicSort(property: any) {
+  var sortOrder = 1;
+  if (property[0] === "-") {
+    sortOrder = -1;
+    property = property.substr(1);
+  }
+  return function (a: any, b: any) {
+    /* next line works with strings and numbers,
+     * and you may want to customize it to your needs
+     */
+    var result =
+      a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+    return result * sortOrder;
+  };
+}
+
 const BuscaPersonas = ({ name }: Props) => {
   const [busca, setBusca] = useState<string>("");
   const [persona, setPersona] = useState<number>(0);
@@ -16,10 +32,13 @@ const BuscaPersonas = ({ name }: Props) => {
   useEffect(() => {
     const cargaDatos = async () => {
       const response = await fetch(
-        "https://retinalatina.org/wp-json/ra/v1/lista_talento?q=10"
+        "https://retinalatina.org/wp-json/ra/v1/lista_talento?q=11"
       );
-      const data = await response.json();
+      let data = await response.json();
+      data.sort(dynamicSort("nombre"));
+
       setPersonas(data);
+      console.log(data);
     };
     cargaDatos();
   }, []);
@@ -99,18 +118,18 @@ const BuscaPersonas = ({ name }: Props) => {
           className="w-full"
         />
       </label>
-      <h1>Estoy buscando...: {busca}</h1>
+      <h1 className="text-white">Estoy buscando...: {busca}</h1>
       <button className="btn btn-xs m-4" onClick={() => setPersona(0)}>
         Reset
       </button>
 
-      <div className="bg-transparent flex gap-4 justify-between">
-        <div className="bg-stone-800-200 w-full flex flex-col justify-end">
+      <div className="bg-slate-900 flex gap-4 justify-between max-h-screen">
+        <div className="bg-transparent w-full flex flex-col  overflow-y-auto ">
           {busca.length > 2 &&
             resPersonas.map((item: any) => (
               <button
                 onClick={() => selPersona(item.id)}
-                className="btn  block p-1 m-1 bg-slate-800 text-slate-400"
+                className="btn  block p-1 m-1 bg-slate-800 text-slate-400 h-auto"
                 key={item.id}
               >
                 {item.id}{" "}
